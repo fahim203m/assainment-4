@@ -28,11 +28,7 @@
   </head>
 
   <body class="bg-slate-100 font-dm min-h-screen">
-    <header class="px-5 py-6 md:max-w-6xl mx-auto">
-      <h1 class="font-syne text-2xl md:text-3xl font-extrabold text-navy tracking-tight">
-        Job Application Tracker
-      </h1>
-    </header>
+   
 
     <div class="md:max-w-6xl mx-auto">
       <main class="px-5 pb-10 lg:px-10 overflow-y-auto">
@@ -226,6 +222,94 @@
       </main>
     </div>
 
+    <script>
+  
+      const totalEl = document.querySelectorAll(".font-syne.text-4xl")[0];
+      const interviewEl = document.querySelectorAll(".font-syne.text-4xl")[1];
+      const rejectEl = document.querySelectorAll(".font-syne.text-4xl")[2];
+
+      const allSection = document.querySelector(".flex.flex-col.gap-2");
+      const interviewSection = document.getElementById("interview-container");
+      const rejectSection = document.getElementById("reject-container");
+
+      const tabs = document.querySelectorAll(".flex.flex-wrap.gap-2.mb-5 button");
+      const jobCount = document.querySelector(".font-medium span");
+
+     
+      function createEmpty() {
+        const div = document.createElement("div");
+        div.className = "empty-state flex flex-col items-center justify-center py-20 gap-3 text-center";
+        div.innerHTML = `<div class="text-6xl opacity-20">📄</div>
+           <p class="font-syne text-lg font-bold text-navy">No jobs available</p>
+          <p class="text-sm text-slate-400">Check back soon</p>`;
+        return div;
+      }
+
+      
+      function updateStats() {
+        const total = allSection.querySelectorAll(".card").length +
+          interviewSection.querySelectorAll(".card").length +
+        rejectSection.querySelectorAll(".card").length;
+        totalEl.innerText = total;
+        interviewEl.innerText = interviewSection.querySelectorAll(".card").length;
+        rejectEl.innerText = rejectSection.querySelectorAll(".card").length;
+        jobCount.innerText = total;
+      }
+ 
+      function checkEmpty(section, show) {
+        const cards = section.querySelectorAll(".card");
+        const empty = section.querySelector(".empty-state");
+        if (!show) { if (empty) empty.remove(); return; }
+        if (cards.length === 0) { if (!empty) section.appendChild(createEmpty()); } 
+        else { if (empty) empty.remove(); }
+      }
+ 
+      function setupCard(card) {
+        const interviewBtn = card.querySelector(".border-teal");
+        const rejectBtn = card.querySelector(".border-coral");
+        const deleteBtn = card.querySelector(".fa-trash-can").parentElement;
+        const status = card.querySelector(".inline-block");
+        let state = "all";
+
+        interviewBtn.onclick = () => {
+          if (state === "interview") return;
+          status.innerText = "Interview";
+          status.className = "mb-3 inline-block text-[0.65rem] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-teal-100 text-teal-600";
+          interviewSection.appendChild(card);
+          state = "interview";
+          updateStats();
+        };
+
+        rejectBtn.onclick = () => {
+          if (state === "rejected") return;
+          status.innerText = "Rejected";
+          status.className = "mb-3 inline-block text-[0.65rem] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-red-100 text-red-600";
+          rejectSection.appendChild(card);
+          state = "rejected";
+          updateStats();
+        };
+
+        deleteBtn.onclick = () => { card.remove(); updateStats(); };
+      }
+
+      document.querySelectorAll(".card").forEach(setupCard);
+
     
+      function showTab(i) {
+        tabs.forEach(t => t.classList.remove("bg-navy","text-white"));
+        tabs[i].classList.add("bg-navy","text-white");
+
+        checkEmpty(interviewSection,false);
+        checkEmpty(rejectSection,false);
+
+        if (i===0){ allSection.style.display="flex"; interviewSection.style.display="flex"; rejectSection.style.display="flex"; jobCount.innerText=totalEl.innerText; }
+        if (i===1){ allSection.style.display="none"; interviewSection.style.display="flex"; rejectSection.style.display="none"; jobCount.innerText=interviewEl.innerText; checkEmpty(interviewSection,true);}
+        if (i===2){ allSection.style.display="none"; interviewSection.style.display="none"; rejectSection.style.display="flex"; jobCount.innerText=rejectEl.innerText; checkEmpty(rejectSection,true);}
+      }
+      tabs.forEach((tab,i)=>{tab.onclick=()=>showTab(i);});
+
+      showTab(0);
+      updateStats();
+    </script>
   </body>
 </html>
