@@ -7,7 +7,21 @@
  
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <style type="text/tailwindcss">
+      @theme {
+        --font-syne: "Syne", sans-serif;
+        --font-dm: "DM Sans", sans-serif;
+        --color-navy: #1d3557;
+        --color-teal: #2a9d8f;
+        --color-coral: #e76f51;
 
+        --animate-fade-up: fadeUp 0.3s ease forwards;
+        @keyframes fadeUp {
+          0% { opacity: 0; transform: translateY(10px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      }
+    </style>
 
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/cc9e8f4940.js" crossorigin="anonymous"></script>
@@ -74,17 +88,7 @@
  
             <div class="card bg-white rounded-2xl border-2 border-slate-100 px-6 py-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 animate-fadeUp">
               <div class="flex justify-between items-start gap-4">
-                <div class="flex-1 min-w-0">
-                  <p class="font-syne font-bold text-navy text-base mb-0.5">Webflow Technology</p>
-                  <p class="text-sm text-slate-500 mb-1.5">Web Developer</p>
-                  <p class="text-xs text-slate-400 mb-3"><span>Remote</span><span class="mx-1.5 text-slate-300">·</span><span>Full-time</span><span class="mx-1.5 text-slate-300">·</span><span>$130,000 - $175,000</span></p>
-                  <div class="mb-3 inline-block text-[0.65rem] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-slate-200 text-slate-500">Not Applied</div>
-                  <p class="text-xs text-slate-500 leading-relaxed mb-4">Build responsive websites using Webflow.</p>
-                  <div class="flex flex-wrap gap-2">
-                    <button class="text-xs font-semibold px-4 py-1.5 rounded-md border-2 border-teal text-teal bg-transparent cursor-pointer transition-all duration-150 hover:bg-teal hover:text-white">Interview</button>
-                    <button class="text-xs font-semibold px-4 py-1.5 rounded-md border-2 border-coral text-coral bg-transparent cursor-pointer transition-all duration-150 hover:bg-coral hover:text-white">Rejected</button>
-                  </div>
-                </div>
+               
                 <button class="text-slate-300 hover:text-red-400 transition-colors duration-150 py-2 px-3 cursor-pointer shrink-0 bg-red-300 rounded-full">
                   <i class="fa-regular fa-trash-can text-black pointer-events-none"></i>
                 </button>
