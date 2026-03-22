@@ -250,16 +250,7 @@
       }
 
       
-      function updateStats() {
-        const total = allSection.querySelectorAll(".card").length +
-          interviewSection.querySelectorAll(".card").length +
-        rejectSection.querySelectorAll(".card").length;
-        totalEl.innerText = total;
-        interviewEl.innerText = interviewSection.querySelectorAll(".card").length;
-        rejectEl.innerText = rejectSection.querySelectorAll(".card").length;
-        jobCount.innerText = total;
-      }
- 
+      
       function checkEmpty(section, show) {
         const cards = section.querySelectorAll(".card");
         const empty = section.querySelector(".empty-state");
