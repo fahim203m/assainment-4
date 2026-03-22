@@ -299,6 +299,21 @@
       document.querySelectorAll(".card").forEach(setupCard);
 
     
+      function showTab(i) {
+        tabs.forEach(t => t.classList.remove("bg-navy","text-white"));
+        tabs[i].classList.add("bg-navy","text-white");
+
+        checkEmpty(interviewSection,false);
+        checkEmpty(rejectSection,false);
+
+        if (i===0){ allSection.style.display="flex"; interviewSection.style.display="flex"; rejectSection.style.display="flex"; jobCount.innerText=totalEl.innerText; }
+        if (i===1){ allSection.style.display="none"; interviewSection.style.display="flex"; rejectSection.style.display="none"; jobCount.innerText=interviewEl.innerText; checkEmpty(interviewSection,true);}
+        if (i===2){ allSection.style.display="none"; interviewSection.style.display="none"; rejectSection.style.display="flex"; jobCount.innerText=rejectEl.innerText; checkEmpty(rejectSection,true);}
+      }
+      tabs.forEach((tab,i)=>{tab.onclick=()=>showTab(i);});
+
+      showTab(0);
+      updateStats();
     </script>
   </body>
 </html>
